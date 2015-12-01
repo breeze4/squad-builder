@@ -1,14 +1,5 @@
 # squad-builder
 
-A Clojure library designed to ... well, that part is up to you.
+Scoring dragon matchups by types so I don't have to learn the types.
 
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Let me hand the program a list of all my dragons available and have it figure out which ones I should pick for a particular matchup.
