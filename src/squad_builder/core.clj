@@ -1,4 +1,5 @@
-(ns squad-builder.core)
+(ns squad-builder.core
+  (:require [clojure.math.combinatorics :as combo]))
 
 ;; elements
 ;(def elements [:fire :wind :earth :water :plant :metal :energy :void :light :shadow])
@@ -52,8 +53,33 @@
         diff (- atk-vs-def-scores def-vs-atk-scores)]
     diff))
 
+(defn- score-dragon-vs-team [attacker defenders]
+  (map #(score-pair-dragons attacker %) defenders))
+
+(defn- score-teams [attackers defenders]
+  (reduce + (flatten (map #(score-dragon-vs-team % defenders) attackers))))
+
+;; given a list of all dragons available to choose from,
+;; compute the scores of all the combinations of dragons against a given team of 3
+
+(defn- team-combinations [all]
+  (combo/combinations all 3))
+
+(defn- score-team-combos [all defenders]
+  (let [combos (team-combinations all)]
+    (map #(score-teams % defenders) combos)))
+
 (def d1 {:types [:fire :wind]})
 (def d2 {:types [:earth :water]})
+(def d3 {:types [:fire]})
+(def d4 {:types [:wind]})
+
+(def dragons [d1 d2 d3 d4])
+
+(def t1 [d1 d3 d4])
+(def t2 [d4 d4 d4])
+
+(score-team-combos dragons t2)
 
 
 ;;
